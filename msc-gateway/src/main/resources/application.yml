@@ -1,12 +1,36 @@
 server:
   port: 8080
 
-logging:
-  level:
-    org.springframework.cloud.gateway: TRACE
-    org.springframework.http.server.reactive: DEBUG
-    org.springframework.web.reactive: DEBUG
-    reactor.ipc.netty: DEBUG
-    reactor.netty: DEBUG
+# 需迁移至nacos的配置
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      #          lower-case-service-id: false
+      routes:
+        - id: msc-service-provider
+          uri: lb://msc-service-provider # 负载均衡地址
+          #          uri: http://localhost:9000/
+          predicates:
+            - Path=/sp/**
+        #          filters:
+        #            - StripPrefix=1 #将/sp前缀去掉
+        - id: msc-service-consumer
+          uri: lb://msc-service-consumer
+          predicates:
+            - Path=/sc/**
+        - id: itsa
+          uri: lb://itsa
+          predicates:
+            - Path=/itsa/**
+  redis:
+    host: 192.168.136.10
+    port: 6379
+    database: 0
 
-
+# 自定义服务列表
+itsa:
+  ribbon:
+    listOfServers: http://localhost:9000/，http://localhost:9001/

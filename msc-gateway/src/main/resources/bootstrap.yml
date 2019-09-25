@@ -1,33 +1,13 @@
-nacos:
-  server:
-    port: 8848
-
 spring:
   application:
     name: msc-gateway
   cloud:
     nacos:
       config:
-        server-addr: nacos:${nacos.server.port}
+        server-addr:  ${NACOS_SERVER_HOST}:${NACOS_SERVER_PORT}
         file-extension: yaml
-      #        prefix: nacos
+        shared-dataids: common.yaml
+        refreshable-dataids: common.yaml
       discovery:
-        server-addr: nacos:${nacos.server.port}
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      routes:
-        - id: service-hi
-          uri: lb://SERVICE-HI
-          predicates:
-            - Path=/demo/**
-          filters:
-            - StripPrefix=1
-
-    # 启动配置文件
-  #  profiles: #可运行时通过java启动参数动态指定
-  #    active: dev
-
+        server-addr:  ${NACOS_SERVER_HOST}:${NACOS_SERVER_PORT}
 
