@@ -1,0 +1,9 @@
+swagger2:
+  enable: true
+  base-package: com.sandra.msc
+  title: msc-skeleton
+  description: Msc-skeleton Restful API docs
+  termsOfServiceUrl: http://localhost:8080 # base url
+  version: 1.0
+  apiName: Authorization
+  apiKeyName: Authorization
