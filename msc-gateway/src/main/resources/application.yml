@@ -9,6 +9,11 @@ spring:
         locator:
           enabled: false
       #          lower-case-service-id: false
+      default-filters: #全局熔断器
+        - name: Hystrix
+          args:
+            name: fallbackcmd
+            fallbackUri: forward:/fallback
       routes:
         - id: msc-service-provider
           uri: lb://msc-service-provider # 负载均衡地址
@@ -31,6 +36,7 @@ spring:
           uri: lb://itsa
           predicates:
             - Path=/itsa/**
+
   redis:
     host: 192.168.136.10
     port: 6379
@@ -41,3 +47,14 @@ spring:
 itsa:
   ribbon:
     listOfServers: http://localhost:9000/，http://localhost:9001/
+
+#hystrix:
+#  shareSecurityContext: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000

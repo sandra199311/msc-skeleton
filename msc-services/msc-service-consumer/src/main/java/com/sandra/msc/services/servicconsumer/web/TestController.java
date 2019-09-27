@@ -22,9 +22,6 @@ public class TestController {
     @Value("${spring.application.name}")
     String serverName;
 
-    @Value("${swagger2.enable}")
-    boolean enableSwagger;
-
     @ApiOperation(value = "hi", httpMethod = "GET")
     @ApiResponses({
             @ApiResponse(code = 200, message = "SUCCESS", response = String.class)})
@@ -32,12 +29,6 @@ public class TestController {
     public String hi() {
 
         return "hi, from " + this.serverName + ":" + this.serverPort;
-    }
-
-    @RequestMapping("/swagger")
-    public String getEnableSwagger() {
-
-        return this.enableSwagger + "";
     }
 
 }
