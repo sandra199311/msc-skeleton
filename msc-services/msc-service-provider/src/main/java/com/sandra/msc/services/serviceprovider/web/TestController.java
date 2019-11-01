@@ -1,6 +1,7 @@
 package com.sandra.msc.services.serviceprovider.web;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ public class TestController {
     @Value("${useLocalCache}")
     private boolean useLocalCache;
 
-    @RequestMapping("/hi")
+    @GetMapping(value = "/hi")
     public String hi() {
 
         return "hi, from " + this.serverName + ":" + this.serverPort;

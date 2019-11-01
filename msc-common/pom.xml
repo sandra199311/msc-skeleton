@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>msc-common-utils</module>
+        <module>msc-common-base</module>
     </modules>
 
 
