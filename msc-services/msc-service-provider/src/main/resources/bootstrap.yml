@@ -1,18 +1,21 @@
-# bootstrap文件配置服务名称，注册中心地址、配置中心地址信息；
-#其他配置均放到application.yml文件，并同步至配置中心的配置文件；
+#暂时指定server.port,spring.profiles.active，运行时，通过运行时参数覆盖
+server:
+  port: 9000 
 spring:
+  profiles:
+    active: dev
   application:
     name: msc-service-provider
   cloud:
     nacos:
       config:
-        server-addr: ${NACOS_SERVER_HOST}:${NACOS_SERVER_PORT}
+        server-addr:  192.168.136.10:8848 #配置中心地址，通过系统环境变量指定
         file-extension: yaml
         group: DEFAULT_GROUP
-        #        prefix: nacos
+        #  prefix: msc-service-provider # 指定配置文件前缀，不指定的情况下，默认为服务名称
         shared-dataids: common.yaml #全局共享配置，多个之间用逗号隔开
         refreshable-dataids: common.yaml #可支持刷新的共享配置，多个之间用逗号隔开（nacos1.3.1实测未能刷新）
       discovery:
-        server-addr: ${NACOS_SERVER_HOST}:${NACOS_SERVER_PORT}
+        server-addr:   192.168.136.10:8848
 
 

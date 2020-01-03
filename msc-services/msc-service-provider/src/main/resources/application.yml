@@ -1,4 +1,19 @@
-server:
-  port: 9000
-  servlet:
-    context-path: /sp
+security:
+  oauth2:
+#    client:
+#      clientId: client
+#      clientSecret: 123456
+#      accessTokenUri: http://localhost:5000/oauth/token
+    resource:
+      userInfoUri: http://localhost:5000/user/me
+      id: msc-auth-server
+      
+swagger2:
+  enable: true
+  base-package: com.sandra.msc.service.provider
+  title: 服务提供者
+  description: 服务提供者
+  termsOfServiceUrl: http://localhost:8091
+  version: 1.0
+  apiName: Authorization
+  apiKeyName: Authorization

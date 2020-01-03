@@ -1,14 +1,18 @@
+server:
+  port: 9005
 spring:
+  profiles:
+    active: dev
   application:
     name: msc-service-consumer
   cloud:
     nacos:
       config:
-        server-addr:  ${NACOS_SERVER_HOST}:${NACOS_SERVER_PORT}
+        server-addr:  ${NACOS_SERVER_ADDR}
         file-extension: yaml
         shared-dataids: common.yaml
         refreshable-dataids: common.yaml
       discovery:
-        server-addr:  ${NACOS_SERVER_HOST}:${NACOS_SERVER_PORT}
+        server-addr:  ${NACOS_SERVER_ADDR}
 
 

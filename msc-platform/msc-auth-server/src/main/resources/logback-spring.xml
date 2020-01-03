@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+	<springProperty scope="context" name="SERVER_PORT" source="server.port" />
+	<springProperty scope="context" name="SPRING_APP_NAME" source="spring.application.name" />
+	<property name="LOG_HOME" value="/app/msc/logs" />
+	<property name="INFO_LOG_FILE"
+		value="${LOG_HOME}/${SPRING_APP_NAME}-${SERVER_PORT}/${SPRING_APP_NAME}.info.log" />
+	<property name="ERROR_LOG_FILE"
+		value="${LOG_HOME}/${SPRING_APP_NAME}-${SERVER_PORT}/${SPRING_APP_NAME}.error.log" />
+
+	<!-- 彩色日志依赖的渲染类 -->
+	<conversionRule conversionWord="clr"
+		converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+	<conversionRule conversionWord="wex"
+		converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+	<conversionRule conversionWord="wEx"
+		converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+	​
+	<property name="LOG_PATTERN"
+		value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([${SPRING_APP_NAME:-},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-B3-ParentSpanId:-},%X{X-Span-Export:-}]){yellow} %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}" />
+
+	<!-- Appender to log to console -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<!-- Minimum logging level to be presented in the console logs -->
+			<level>DEBUG</level>
+		</filter>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+	<!-- Appender to log to file -->
+	<appender name="infofile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${INFO_LOG_FILE}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${INFO_LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+	<!-- Appender to log to file -->
+	<appender name="errorfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${ERROR_LOG_FILE}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${ERROR_LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
+	<root level="debug">
+		<appender-ref ref="console" />
+		<appender-ref ref="infofile" />
+		<appender-ref ref="errorfile" />
+	</root>
+
+	<!-- 多环境日志配置 -->
+<!-- 	<springProfile name="dev">
+		<root level="debug">
+			<appender-ref ref="console" />
+			<appender-ref ref="infofile" />
+			<appender-ref ref="errorfile" />
+		</root>
+	</springProfile> -->
+
+<!-- 	<springProfile name="test,prod">
+		<root level="info">
+			<appender-ref ref="infofile" />
+			<appender-ref ref="errorfile" />
+		</root>
+	</springProfile> -->
+
+
+</configuration>

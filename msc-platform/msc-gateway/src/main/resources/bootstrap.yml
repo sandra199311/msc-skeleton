@@ -1,0 +1,15 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: msc-gateway
+  cloud:
+    nacos:
+      config:
+        server-addr:  192.168.136.10:8848
+        file-extension: yaml
+        shared-dataids: common.yaml
+        refreshable-dataids: common.yaml
+      discovery:
+        server-addr:  192.168.136.10:8848
+
