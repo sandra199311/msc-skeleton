@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.sandra.msc.authserver.security.CostomUserServiceDetail;
+import com.sandra.msc.authserver.security.CostomUserDetailService;
 
 @Configuration
 @EnableWebSecurity
@@ -22,7 +22,7 @@ import com.sandra.msc.authserver.security.CostomUserServiceDetail;
 public class Oauth2WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private CostomUserServiceDetail userServiceDetail;
+    private CostomUserDetailService userServiceDetail;
 
     /**
      * 配置oauth endpoint与登录接口访问权限
@@ -38,12 +38,16 @@ public class Oauth2WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
                 .invalidateHttpSession(true)
                 .clearAuthentication(true);
+        //                .and()
+        //                .exceptionHandling()
+        //                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));
 
     }
 

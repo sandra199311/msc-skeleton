@@ -21,11 +21,11 @@ public class CodeGenerator {
     public static void main(final String[] args) {
 
         final String author = "sandra";
-        final String tableNames = "user";
+        final String tableNames = "business_process_inst,approval_record";
         final String modelName = "authserver";
         final String packageParent = "com.sandra.msc";
 
-        final String dbUrl = "jdbc:mysql://192.168.136.10:3306/auth?useUnicode=true"
+        final String dbUrl = "jdbc:mysql://192.168.12.2:3306/rms_flow?useUnicode=true"
                 + "&characterEncoding=UTF-8&autoReconnect=true" + "&useSSL=false&zeroDateTimeBehavior=convertToNull";
         final String dbUsername = "root";
         final String dbPassword = "123456";

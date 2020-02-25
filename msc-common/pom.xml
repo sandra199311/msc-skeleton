@@ -12,6 +12,7 @@
     <modules>
         <module>msc-common-core</module>
     <module>msc-common-starter</module>
+    <module>msc-common-base</module>
   </modules>
 
 

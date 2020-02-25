@@ -1,7 +1,5 @@
 package com.sandra.msc.common.core.exception;
 
-import com.sandra.msc.common.core.constant.ErrorCode;
-
 /**
  * 
  * BaseException
@@ -24,11 +22,18 @@ public class BaseException extends RuntimeException {
         message = errorCode.getMessage();
     }
 
-    public BaseException(final ErrorCode errorCode, final String detailMessage) {
+    public BaseException(final IErrorCode errorCode, final String detailMessage) {
 
         super();
         code = errorCode.getCode();
         message = errorCode.getMessage() + "(" + detailMessage + ")";
+    }
+
+    public BaseException(final IErrorCode errorCode, final Throwable cause) {
+
+        super(cause);
+        code = errorCode.getCode();
+        message = errorCode.getMessage();
     }
 
     public String getCode() {

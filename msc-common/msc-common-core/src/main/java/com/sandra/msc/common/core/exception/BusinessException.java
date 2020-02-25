@@ -1,7 +1,5 @@
 package com.sandra.msc.common.core.exception;
 
-import com.sandra.msc.common.core.constant.ErrorCode;
-
 /**
  * 业务异常
  *
@@ -12,9 +10,9 @@ public class BusinessException extends BaseException {
 
     private static final long serialVersionUID = 1410272129693890185L;
 
-    public BusinessException(final ErrorCode exceptionCode, final String detailMessage) {
+    public BusinessException(final IErrorCode errorCode, final String detailMessage) {
 
-        super(exceptionCode, detailMessage);
+        super(errorCode, detailMessage);
     }
 
     public BusinessException(final IErrorCode exceptionEnum) {
